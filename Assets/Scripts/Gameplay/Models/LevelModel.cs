@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Models
 {
     public class LevelModel
     {
-        public PlayerModel CurrentPlayer { get; set; }
+        public LinkedListNode<PlayerModel> CurrentPlayer { get; set; }
 
         public int RandomMoveLenght()
         {

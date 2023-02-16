@@ -2,20 +2,27 @@ using System;
 using Cysharp.Threading.Tasks;
 using Gameplay.Services;
 using UniRx;
-using Zenject;
 
 namespace Controllers
 {
-    public class PlayerController : IInitializable, IDisposable
+    public class PlayersController : IDisposable
     {
         private readonly LevelContainer _levelContainer;
 
-        public PlayerController(LevelContainer levelContainer)
+        public PlayersController(LevelContainer levelContainer)
         {
             _levelContainer = levelContainer;
         }
 
-        void IInitializable.Initialize()
+        void IDisposable.Dispose()
+        {
+            foreach (var playerModel in _levelContainer.PlayerViewsByModel.Keys)
+            {
+                playerModel.CurrentProgress.Dispose();
+            }
+        }
+
+        public void SetupPlayers()
         {
             foreach (var playerViewByModel in _levelContainer.PlayerViewsByModel)
             {
@@ -28,14 +35,6 @@ namespace Controllers
 
                     playerView.PlayMoveToAnimationAsync(pathPoint.transform.position).Forget();
                 });
-            }
-        }
-
-        void IDisposable.Dispose()
-        {
-            foreach (var playerModel in _levelContainer.PlayerViewsByModel.Keys)
-            {
-                playerModel.CurrentProgress.Dispose();
             }
         }
     }

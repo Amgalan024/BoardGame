@@ -14,20 +14,26 @@ namespace Installers
         
         public override void InstallBindings()
         {
-            Container.Bind<LevelFactory>().AsSingle();
-            Container.Bind<LevelContainer>().AsSingle().MoveIntoAllSubContainers();
-            Container.Bind<LevelModel>().AsSingle().MoveIntoAllSubContainers();
+            Container.Bind<LevelFactory>().ToSelf().AsSingle();
+            Container.Bind<LevelModel>().ToSelf().AsSingle();
+            Container.Bind<LevelContainer>().ToSelf().AsSingle();
             
             //todo: потом будет заполняться и передаваться с меню
-            var levelSetupModel = new LevelSetupModel();
-            
-            levelSetupModel.SelectedPathPrefab = _gameplayVisualData.PathViews.First();
-            levelSetupModel.GameUIView = _gameplayVisualData.GameUIViews.First();
-            levelSetupModel.SelectedPlayerPrefabs = _gameplayVisualData.PlayerViews;
-            
+            var levelSetupModel = new LevelSetupModel
+            {
+                SelectedPathPrefab = _gameplayVisualData.PathViews.First(),
+                GameUIView = _gameplayVisualData.GameUIViews.First(),
+                SelectedPlayerPrefabs = _gameplayVisualData.PlayerViews
+            };
+
             Container.BindInstance(levelSetupModel).AsSingle();
 
-            Container.BindInterfacesTo<LevelSetupController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LevelController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UIController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayersController>().AsSingle();
+            
+            Container.BindInterfacesTo<ControllersEntryPoint>().AsSingle();
+
         }
     }
 }

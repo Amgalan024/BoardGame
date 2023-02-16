@@ -22,6 +22,7 @@ namespace Gameplay.Services
                 var playerView = Object.Instantiate(selectedPlayerPrefab);
 
                 _levelContainer.PlayerViewsByModel.Add(playerModel, playerView);
+                _levelContainer.LinkedPlayerModels.AddLast(playerModel);
             }
         }
 

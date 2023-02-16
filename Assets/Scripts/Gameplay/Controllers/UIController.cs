@@ -1,11 +1,10 @@
 using System;
 using Gameplay.Services;
 using Models;
-using Zenject;
 
 namespace Controllers
 {
-    public class UIController : IInitializable, IDisposable
+    public class UIController : IDisposable
     {
         private readonly LevelContainer _levelContainer;
         private readonly LevelModel _levelModel;
@@ -16,24 +15,28 @@ namespace Controllers
             _levelModel = levelModel;
         }
 
-        void IInitializable.Initialize()
-        {
-            SetupLogic();
-        }
-
         void IDisposable.Dispose()
         {
             _levelContainer.GameUIView.MakeMoveButton.onClick.RemoveAllListeners();
         }
 
-        private void SetupLogic()
+        public void SetupUILogic()
         {
-            _levelContainer.GameUIView.MakeMoveButton.onClick.AddListener(() =>
-            {
-                var moveLenght = _levelModel.RandomMoveLenght();
+            _levelModel.CurrentPlayer = _levelContainer.LinkedPlayerModels.First;
 
-                _levelModel.CurrentPlayer.CurrentProgress.Value += moveLenght;
-            });
+            _levelContainer.GameUIView.MakeMoveButton.onClick.AddListener(MakeMove);
+        }
+
+        private void MakeMove()
+        {
+            var moveLenght = _levelModel.RandomMoveLenght();
+
+            _levelModel.CurrentPlayer.Value.CurrentProgress.Value += moveLenght;
+
+            if (_levelModel.CurrentPlayer.Next != null)
+            {
+                _levelModel.CurrentPlayer = _levelModel.CurrentPlayer.Next;
+            }
         }
     }
 }

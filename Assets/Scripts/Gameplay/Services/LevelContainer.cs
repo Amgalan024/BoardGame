@@ -9,6 +9,8 @@ namespace Gameplay.Services
         public Dictionary<PlayerModel, PlayerView> PlayerViewsByModel { get; } =
             new Dictionary<PlayerModel, PlayerView>();
 
+        public LinkedList<PlayerModel> LinkedPlayerModels = new LinkedList<PlayerModel>();
+
         public PathModel PathModel { get; set; }
         public PathView PathView { get; set; }
 
