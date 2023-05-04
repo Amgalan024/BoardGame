@@ -281,10 +281,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: Services.Root.ServicesLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   _gameplayVisualData: {fileID: 11400000, guid: db7670956e3a32f4285a5d76f62054f2, type: 2}
+  _menuData: {fileID: 11400000, guid: 1f088d16d896f4c44a722840b204f3ba, type: 2}
+  _menuView: {fileID: 1797970015}
 --- !u!1 &1611655679
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +380,7 @@ GameObject:
   - component: {fileID: 1797970016}
   - component: {fileID: 1797970015}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MenuView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,10 +395,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1797970014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efff206bfe9e4bbdab9dfc590d6eb9d1, type: 3}
+  m_Script: {fileID: 11500000, guid: e63fa07372c44cffab34d3783d05df42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneIndex: 1
   _startButton: {fileID: 2088239887}
 --- !u!114 &1797970016
 MonoBehaviour:

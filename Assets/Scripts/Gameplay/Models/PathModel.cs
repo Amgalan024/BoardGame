@@ -1,3 +1,5 @@
+using Services.SceneLoader;
+
 namespace Models
 {
     public class PathModel
