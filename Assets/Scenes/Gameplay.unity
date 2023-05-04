@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: Menu.Installers.MenuLifetimeScope
+    TypeName: Services.Root.ServicesLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
 --- !u!4 &915449324

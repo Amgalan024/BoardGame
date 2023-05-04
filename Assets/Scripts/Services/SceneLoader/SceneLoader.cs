@@ -1,6 +1,9 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
+using VContainer;
+using VContainer.Unity;
 
 namespace Services.SceneLoader
 {
@@ -15,6 +18,15 @@ namespace Services.SceneLoader
             await sceneLoadOperation;
 
             SceneManager.SetActiveScene(sceneLoadOperation.Result.Scene);
+        }
+
+        public async UniTask LoadSceneWithEnqueuedBuilder(AssetReference assetReference,
+            Action<IContainerBuilder> builderAction)
+        {
+            using (LifetimeScope.Enqueue(builderAction))
+            {
+                await LoadSceneAsync(assetReference);
+            }
         }
     }
 }
