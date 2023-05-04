@@ -19,21 +19,19 @@ namespace Installers
             Container.Bind<LevelContainer>().ToSelf().AsSingle();
             
             //todo: потом будет заполняться и передаваться с меню
-            var levelSetupModel = new LevelSetupModel
-            {
-                SelectedPathPrefab = _gameplayVisualData.PathViews.First(),
-                GameUIView = _gameplayVisualData.GameUIViews.First(),
-                SelectedPlayerPrefabs = _gameplayVisualData.PlayerViews
-            };
+            // var levelSetupModel = new LevelSetupModel
+            // {
+            //     SelectedPathPrefab = _gameplayVisualData.PathViews.First(),
+            //     GameUIView = _gameplayVisualData.GameUIViews.First(),
+            //     SelectedPlayerPrefabs = _gameplayVisualData.PlayerViews
+            // };
+            //
+            // Container.BindInstance(levelSetupModel).AsSingle();
 
-            Container.BindInstance(levelSetupModel).AsSingle();
-
-            Container.BindInterfacesAndSelfTo<LevelController>().AsSingle();
-            Container.BindInterfacesAndSelfTo<UIController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LevelSetupController>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayersController>().AsSingle();
             
-            Container.BindInterfacesTo<ControllersEntryPoint>().AsSingle();
-
+            Container.BindInterfacesTo<GameplayStartup>().AsSingle();
         }
     }
 }

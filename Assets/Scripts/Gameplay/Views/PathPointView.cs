@@ -4,7 +4,6 @@ namespace Views
 {
     public class PathPointView : MonoBehaviour
     {
-        
         public void PlayActivateAnimation()
         {
             

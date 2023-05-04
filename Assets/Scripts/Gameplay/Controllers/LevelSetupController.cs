@@ -2,18 +2,18 @@ using Gameplay.Services;
 
 namespace Controllers
 {
-    public class LevelController
+    public class LevelSetupController 
     {
         private readonly LevelFactory _levelFactory;
         private readonly LevelContainer _levelContainer;
 
-        public LevelController(LevelFactory levelFactory, LevelContainer levelContainer)
+        public LevelSetupController(LevelFactory levelFactory, LevelContainer levelContainer)
         {
             _levelFactory = levelFactory;
             _levelContainer = levelContainer;
         }
 
-        public void CreateLevel()
+        public void SetupLevel()
         {
             _levelFactory.CreatePlayers();
             _levelFactory.CreatePath();

@@ -1,9 +1,18 @@
+using System;
 using UniRx;
 
 namespace Models
 {
     public class PlayerModel
     {
-        public ReactiveProperty<int> CurrentProgress { get; } = new ReactiveProperty<int>();
+        public event Action<int> OnMoved;
+        public int CurrentProgress { get; private set; }
+
+        public void MovePlayer(int steps)
+        {
+            CurrentProgress += steps;
+
+            OnMoved?.Invoke(CurrentProgress);
+        }
     }
 }
