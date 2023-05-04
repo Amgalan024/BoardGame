@@ -540,47 +540,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1214535309}
-  - component: {fileID: 1214535308}
   m_Layer: 0
-  m_Name: SceneContextr
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1214535308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214535307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 1591683033}
-  _installerPrefabs: []
-  _autoRun: 1
-  OnPreInstall:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPostInstall:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPreResolve:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPostResolve:
-    m_PersistentCalls:
-      m_Calls: []
-  _parentNewObjectsUnderSceneContext: 0
-  _contractNames:
-  - Menu
-  _parentContractNames: []
 --- !u!4 &1214535309
 Transform:
   m_ObjectHideFlags: 0
@@ -607,7 +573,7 @@ GameObject:
   - component: {fileID: 1591683032}
   - component: {fileID: 1591683033}
   m_Layer: 0
-  m_Name: MenuInstaller
+  m_Name: MenuLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,6 +605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a22d2b5f5440de858da430c745056b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
   _gameplayVisualData: {fileID: 11400000, guid: db7670956e3a32f4285a5d76f62054f2, type: 2}
 --- !u!1 &2026491309
 GameObject:
