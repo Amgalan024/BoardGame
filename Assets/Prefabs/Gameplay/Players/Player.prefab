@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 0.5
   _easeType: 0
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _renderer: {fileID: 5760926603578934490}
 --- !u!1 &2512458993992621715
 GameObject:
   m_ObjectHideFlags: 0

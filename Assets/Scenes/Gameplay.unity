@@ -305,6 +305,7 @@ MonoBehaviour:
     TypeName: Services.Root.ServicesLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
+  _gameplayVisualData: {fileID: 11400000, guid: db7670956e3a32f4285a5d76f62054f2, type: 2}
 --- !u!4 &915449324
 Transform:
   m_ObjectHideFlags: 0

@@ -188,7 +188,7 @@ MonoBehaviour:
   - {fileID: 6806241691217449343}
   - {fileID: 3512586738744338416}
   _startPathPoint: {fileID: 7883751931338016799}
-  _finishPathPoint: {fileID: 0}
+  _finishPathPoint: {fileID: 3512586738744338416}
 --- !u!1 &6687237026900109030
 GameObject:
   m_ObjectHideFlags: 0
