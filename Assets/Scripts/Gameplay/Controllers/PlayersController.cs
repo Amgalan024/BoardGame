@@ -1,78 +1,74 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Gameplay.Enums;
 using Gameplay.Services;
 using Models;
-using UnityEngine;
+using VContainer.Unity;
 using Views;
 using Views.PathPointBehaviours;
 
 namespace Controllers
 {
-    public class PlayersController : IDisposable
+    public class PlayersController : IStartable, IDisposable
     {
         private readonly LevelContainer _levelContainer;
         private readonly LevelModel _levelModel;
+
+        private readonly Action<int, MoveDirection> _onMovedAction;
 
         public PlayersController(LevelContainer levelContainer, LevelModel levelModel)
         {
             _levelContainer = levelContainer;
             _levelModel = levelModel;
+            _onMovedAction = (steps, direction) => { MovePlayerAsync(steps, direction).Forget(); };
+        }
+
+        void IStartable.Start()
+        {
+            foreach (var playerModel in _levelContainer.PlayerModels)
+            {
+                playerModel.OnMoveDistanceSet += _onMovedAction;
+            }
         }
 
         void IDisposable.Dispose()
         {
             foreach (var playerModel in _levelContainer.PlayerViewsByModel.Keys)
             {
-                playerModel.OnMoved -= MovePlayer;
+                playerModel.OnMoveDistanceSet -= _onMovedAction;
             }
-
-            _levelContainer.GameUIView.MakeMoveButton.onClick.RemoveAllListeners();
         }
 
-        public void SetupPlayers()
-        {
-            foreach (var playerModel in _levelContainer.LinkedPlayerModels)
-            {
-                playerModel.OnMoved += MovePlayer;
-            }
-
-            _levelModel.CurrentPlayer = _levelContainer.LinkedPlayerModels.First;
-
-            _levelContainer.GameUIView.MakeMoveButton.onClick.AddListener(OnMoveButtonClicked);
-        }
-
-        //todo: переместить в UI Controller
-        private void OnMoveButtonClicked()
-        {
-            var moveLenght = _levelModel.RandomMoveLenght();
-
-            var playerModel = _levelModel.CurrentPlayer.Value;
-
-            playerModel.MovePlayer(moveLenght);
-        }
-
-        private void MovePlayer(int steps)
+        private async UniTaskVoid MovePlayerAsync(int steps, MoveDirection moveDirection)
         {
             var playerModel = _levelModel.CurrentPlayer.Value;
+            var playerView = _levelContainer.PlayerViewsByModel[playerModel];
 
-            var pathPoint = _levelContainer.PathView.PathPoints[playerModel.CurrentProgress];
-
-            _levelContainer.PlayerViewsByModel[playerModel].PlayMoveToAnimationAsync(pathPoint.transform.position)
-                .Forget();
-
-            ApplyPathPointEffect(pathPoint);
-
-            if (_levelModel.CurrentPlayer.Next != null)
+            for (int i = playerModel.CurrentProgress; i < steps; i++)
             {
-                _levelModel.CurrentPlayer = _levelModel.CurrentPlayer.Next;
+                var pathPoint = _levelContainer.PathView.PathPoints[i];
+
+                await playerView.PlayMoveToAnimationAsync(pathPoint.transform.position);
+
+                playerModel.MovePlayer(moveDirection);
+            }
+
+            var lastPathPoint = _levelContainer.PathView.PathPoints[playerModel.CurrentProgress];
+
+            if (TryApplyPathPointEffect(lastPathPoint) == false)
+            {
+                _levelModel.ChangeTurn();
             }
         }
 
-        private void ApplyPathPointEffect(PathPointView pathPointView)
+        private bool TryApplyPathPointEffect(PathPointView pathPointView)
         {
-            var behaviour = pathPointView.GetComponent<IPathPointBehaviour>();
+            var hasBehaviour = _levelContainer.PathModel.PathPointBehaviours.TryGetValue(pathPointView,
+                out IPathPointBehaviour pathPointBehaviour);
 
-            behaviour.ApplyEffect(_levelModel.CurrentPlayer.Value);
+            pathPointBehaviour?.ApplyEffect(_levelModel.CurrentPlayer.Value);
+
+            return hasBehaviour;
         }
     }
 }
