@@ -366,17 +366,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2088239887 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4530294088302520256, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
-  m_PrefabInstance: {fileID: 4530294090246055119}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4530294090246055119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,10 +377,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayersVsPlayersButton
       objectReference: {fileID: 0}
-    - target: {fileID: 4530294088515206288, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
-      propertyPath: _vsPlayersButton
-      value: 
-      objectReference: {fileID: 2088239887}
     - target: {fileID: 4530294088515206289, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
       propertyPath: m_Name
       value: MenuView
@@ -484,9 +469,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4530294088515206317, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4530294088635059504, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
       propertyPath: m_Name
       value: Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 4530294088635059504, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4530294088635059918, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_Text
+      value: "\u0418\u0433\u0440\u0430\u0442\u044C \u0441 \u0438\u0433\u0440\u043E\u043A\u0430\u043C\u0438"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4530294088635059918, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 3bd20cc1f84fec843bf059f4b23256f6, type: 3}
+    - target: {fileID: 4530294088635059918, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 106
+      objectReference: {fileID: 0}
+    - target: {fileID: 4530294088635059918, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976768717836365849, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616185822913974136, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302718294465931975, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26cdc9bee9ef700488b3cff48a33b692, type: 3}
@@ -497,10 +518,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 202627634317757862, guid: bd144064057d06c4b89cf30e88e34d6b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 12.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1484934507166699586, guid: bd144064057d06c4b89cf30e88e34d6b, type: 3}
       propertyPath: m_Name
       value: PlayVsPlayersView

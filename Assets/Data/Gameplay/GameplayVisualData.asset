@@ -18,8 +18,8 @@ MonoBehaviour:
   - _icon: {fileID: 21300000, guid: 372e7b39fc8f34549ac25d8757965a2c, type: 3}
     _prefab: {fileID: 2116928523405882769, guid: f384430211f119c44b9c562277262c66, type: 3}
   _playerViews:
-  - {fileID: 8970997824631162855, guid: e063923709bb4294d8867fbed4b20eaf, type: 3}
   - {fileID: 3091280867137130514, guid: ddc5baadcaa7c1248a2995f580d57242, type: 3}
   - {fileID: 3091280867137130514, guid: 007e73b1896fec84e9910f62173f8849, type: 3}
   - {fileID: 3091280867137130514, guid: c5e87e455687de04cbe8c64ce06cb2e9, type: 3}
   _gameUIView: {fileID: 698035410202648791, guid: 9eb1bbaeb35f5b44a8ef12e4a7fe3d30, type: 3}
+  _mathTaskView: {fileID: 4835854915046206985, guid: 34b3443bbf2f4884ea6b12980dea436b, type: 3}

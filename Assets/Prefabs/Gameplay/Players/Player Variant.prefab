@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4455404280356629153, guid: e063923709bb4294d8867fbed4b20eaf, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300018, guid: 799f653f08c90c94c8b0126557609836, type: 3}
     - target: {fileID: 5982971352032189804, guid: e063923709bb4294d8867fbed4b20eaf, type: 3}
       propertyPath: m_RootOrder
       value: 0
