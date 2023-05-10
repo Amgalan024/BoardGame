@@ -1,38 +1,53 @@
 using System;
+using System.Collections.Generic;
 using Gameplay.Enums;
+using Views;
 using Views.PathPointBehaviours;
 using Random = UnityEngine.Random;
 
 namespace Gameplay.Services.Path
 {
-    public class MathTaskGenerator
+    public class MathTaskMapGenerator : IBehaviorMapGenerator
     {
         private readonly LevelContainer _levelContainer;
 
-        public MathTaskGenerator(LevelContainer levelContainer)
+        public MathTaskMapGenerator(LevelContainer levelContainer)
         {
             _levelContainer = levelContainer;
         }
 
-        public void GenerateTasks()
+        List<PathPointView> IBehaviorMapGenerator.GenerateBehavioursMap()
         {
             var pathModel = _levelContainer.PathModel;
             var pathView = _levelContainer.PathView;
 
             int pathPointIndex = 0;
 
+            var minStep = 3;
+            var maxStep = 6;
+
+            var behaviourMap = new List<PathPointView>();
+
             while (pathPointIndex <= pathModel.TotalProgress)
             {
-                pathPointIndex += Random.Range(3, 6);
+                pathPointIndex += Random.Range(minStep, maxStep);
 
-                var mathTaskPathPoint = GenerateMathTaskPoint();
+                if (pathPointIndex >= pathModel.TotalProgress)
+                {
+                    return behaviourMap;
+                }
+
                 var pathPointView = pathView.PathPoints[pathPointIndex];
 
-                pathModel.PathPointBehaviours.Add(pathPointView, mathTaskPathPoint);
+                pathPointView.SetTaskSign();
+
+                behaviourMap.Add(pathPointView);
             }
+
+            return behaviourMap;
         }
 
-        private MathTaskPathPoint GenerateMathTaskPoint()
+        IPathPointBehaviour IBehaviorMapGenerator.GeneratePathPointBehaviour()
         {
             var operation = GetRandomOperation();
 
@@ -40,6 +55,7 @@ namespace Gameplay.Services.Path
             int number2;
             int answer = 0;
             string taskText = "task_default";
+            int reward = Random.Range(1, 4);
 
             switch (operation)
             {
@@ -78,7 +94,7 @@ namespace Gameplay.Services.Path
                     break;
             }
 
-            var mathTaskPathPoint = new MathTaskPathPoint(_levelContainer.MathTaskView, taskText, answer, 2);
+            var mathTaskPathPoint = new MathTaskPathPoint(_levelContainer.MathTaskView, taskText, answer, reward);
 
             return mathTaskPathPoint;
         }

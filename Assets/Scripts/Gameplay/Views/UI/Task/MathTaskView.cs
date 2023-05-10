@@ -7,7 +7,7 @@ namespace Views
 {
     public class MathTaskView : MonoBehaviour
     {
-        [SerializeField] private Text _taskText;
+        [SerializeField] private TextMeshProUGUI _taskText;
         [SerializeField] private TMP_InputField _answerInput;
         [SerializeField] private Button _submitAnswerButton;
 

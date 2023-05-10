@@ -6,25 +6,31 @@ namespace Views.PathPointBehaviours
 {
     public class MathTaskPathPoint : IPathPointBehaviour
     {
+        public bool IsActive { get; set; }
+        public int Reward { get; }
+
         private readonly MathTaskView _mathTaskView;
         private readonly string _taskText;
         private readonly int _answer;
-        private readonly int _reward;
 
         public MathTaskPathPoint(MathTaskView mathTaskView, string taskText, int answer, int reward)
         {
             _mathTaskView = mathTaskView;
             _taskText = taskText;
             _answer = answer;
-            _reward = reward;
+            Reward = reward;
+
+            IsActive = true;
         }
 
         public void ApplyEffect(PlayerModel playerModel)
         {
+            IsActive = false;
+
             _mathTaskView.Clear();
             _mathTaskView.SetTaskText(_taskText);
             _mathTaskView.OpenAsync().Forget();
-
+            _mathTaskView.SubmitAnswerButton.onClick.RemoveAllListeners();
             _mathTaskView.SubmitAnswerButton.onClick.AddListener(() => { SubmitAnswerAsync(playerModel).Forget(); });
         }
 
@@ -32,7 +38,7 @@ namespace Views.PathPointBehaviours
         {
             if (Convert.ToInt32(_mathTaskView.AnswerInput.text) == _answer)
             {
-                playerModel.SetMoveDistance(_reward);
+                playerModel.SetMoveDistance(Reward);
                 await _mathTaskView.PlayCorrectAnswerAnimationAsync();
             }
             else

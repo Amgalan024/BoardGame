@@ -8,8 +8,8 @@ namespace Models
     {
         public int TotalProgress { get; }
 
-        public Dictionary<PathPointView, IPathPointBehaviour> PathPointBehaviours { get; } =
-            new Dictionary<PathPointView, IPathPointBehaviour>();
+        public List<PathPointView> TaskedPathPointViews { get; } =
+            new List<PathPointView>();
 
         public PathModel(int totalProgress)
         {

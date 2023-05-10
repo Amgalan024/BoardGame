@@ -4,16 +4,18 @@ namespace Views.PathPointBehaviours
 {
     public class LeapPathPoint : IPathPointBehaviour
     {
-        private readonly int _leapValue;
-
-        public LeapPathPoint(int leapValue)
+        public LeapPathPoint(int reward)
         {
-            _leapValue = leapValue;
+            Reward = reward;
         }
+
+        public bool IsActive { get; set; }
+
+        public int Reward { get; }
 
         public void ApplyEffect(PlayerModel playerModel)
         {
-            playerModel.SetMoveDistance(_leapValue);
+            playerModel.SetMoveDistance(Reward);
         }
     }
 }

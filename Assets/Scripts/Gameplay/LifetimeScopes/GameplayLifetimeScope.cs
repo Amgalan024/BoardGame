@@ -22,8 +22,8 @@ namespace Installers
             builder.Register<LevelFactory>(Lifetime.Singleton);
             builder.Register<LevelModel>(Lifetime.Singleton);
             builder.Register<LevelContainer>(Lifetime.Singleton);
-            
-            builder.Register<MathTaskGenerator>(Lifetime.Singleton);
+
+            builder.Register<MathTaskMapGenerator>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterEntryPoint<LevelSetupController>();
             builder.RegisterEntryPoint<PlayersController>();

@@ -15,9 +15,12 @@ namespace Models
 
         private readonly int _maxProgress;
 
-        public PlayerModel(int maxProgress)
+        public int Index;
+
+        public PlayerModel(int maxProgress, int index)
         {
             _maxProgress = maxProgress;
+            Index = index;
         }
 
         public void MovePlayer(MoveDirection moveDirection)

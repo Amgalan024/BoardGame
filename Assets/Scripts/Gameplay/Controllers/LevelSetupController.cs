@@ -2,6 +2,7 @@ using Gameplay.Services;
 using Gameplay.Services.Path;
 using Models;
 using VContainer.Unity;
+using Views.PathPointBehaviours;
 
 namespace Controllers
 {
@@ -10,12 +11,15 @@ namespace Controllers
         private readonly LevelFactory _levelFactory;
         private readonly LevelContainer _levelContainer;
         private readonly LevelModel _levelModel;
+        private readonly IBehaviorMapGenerator _behaviorMapGenerator;
 
-        public LevelSetupController(LevelFactory levelFactory, LevelContainer levelContainer, LevelModel levelModel)
+        public LevelSetupController(LevelFactory levelFactory, LevelContainer levelContainer, LevelModel levelModel,
+            IBehaviorMapGenerator behaviorMapGenerator)
         {
             _levelFactory = levelFactory;
             _levelContainer = levelContainer;
             _levelModel = levelModel;
+            _behaviorMapGenerator = behaviorMapGenerator;
         }
 
         void IInitializable.Initialize()
@@ -25,6 +29,7 @@ namespace Controllers
             _levelFactory.CreateUI();
 
             _levelModel.SetActivePlayers(_levelContainer.PlayerModels);
+            _levelContainer.PathModel.TaskedPathPointViews.AddRange(_behaviorMapGenerator.GenerateBehavioursMap());
 
             foreach (var playerView in _levelContainer.PlayerViewsByModel.Values)
             {

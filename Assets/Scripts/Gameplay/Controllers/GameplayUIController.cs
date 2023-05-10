@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace Controllers
 {
-    public class GameplayUIController : IInitializable, IDisposable
+    public class GameplayUIController : IStartable, IDisposable
     {
         private readonly LevelContainer _levelContainer;
         private readonly LevelModel _levelModel;
@@ -16,9 +16,10 @@ namespace Controllers
             _levelContainer = levelContainer;
         }
 
-        void IInitializable.Initialize()
+        void IStartable.Start()
         {
             _levelContainer.GameUIView.MakeMoveButton.onClick.AddListener(OnMoveButtonClicked);
+            _levelContainer.MathTaskView.CloseAsync();
         }
 
         void IDisposable.Dispose()
