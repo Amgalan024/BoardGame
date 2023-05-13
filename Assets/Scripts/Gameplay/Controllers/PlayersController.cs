@@ -2,11 +2,9 @@ using System;
 using Cysharp.Threading.Tasks;
 using Gameplay.Enums;
 using Gameplay.Services;
-using Gameplay.Services.Path;
+using Gameplay.Services.TurnControllerStrategies.Interface;
 using Models;
 using VContainer.Unity;
-using Views;
-using Views.PathPointBehaviours;
 
 namespace Controllers
 {
@@ -14,16 +12,14 @@ namespace Controllers
     {
         private readonly LevelContainer _levelContainer;
         private readonly LevelModel _levelModel;
-        private readonly IBehaviorMapGenerator _behaviorMapGenerator;
-
+        private readonly IGameModeHandler _gameModeHandler;
         private readonly Action<int, MoveDirection> _onMovedAction;
 
-        public PlayersController(LevelContainer levelContainer, LevelModel levelModel,
-            IBehaviorMapGenerator behaviorMapGenerator)
+        public PlayersController(LevelContainer levelContainer, LevelModel levelModel, IGameModeHandler gameModeHandler)
         {
             _levelContainer = levelContainer;
             _levelModel = levelModel;
-            _behaviorMapGenerator = behaviorMapGenerator;
+            _gameModeHandler = gameModeHandler;
             _onMovedAction = (steps, direction) => { MovePlayerAsync(steps, direction).Forget(); };
         }
 
@@ -53,40 +49,26 @@ namespace Controllers
             {
                 var pathPointIndex = playerModel.CurrentProgress + (int) moveDirection;
 
-                var pathPoint = _levelContainer.PathView.PathPoints[pathPointIndex];
-
-                await playerView.PlayMoveToAnimationAsync(pathPoint.transform.position);
-
-                playerModel.MovePlayer(moveDirection);
-
                 if (pathPointIndex >= _levelContainer.PathModel.TotalProgress)
                 {
                     _levelModel.ChangeTurn();
 
                     return;
                 }
+
+                var pathPoint = _levelContainer.PathView.PathPoints[pathPointIndex];
+
+                await playerView.PlayMoveToAnimationAsync(pathPoint.transform.position);
+
+                playerModel.MovePlayer(moveDirection);
             }
 
             var lastPathPoint = _levelContainer.PathView.PathPoints[playerModel.CurrentProgress];
 
-            if (TryApplyPathPointEffect(lastPathPoint) == false)
+            if (_gameModeHandler.TryApplyPathPointEffect(lastPathPoint) == false)
             {
                 _levelModel.ChangeTurn();
             }
-        }
-
-        private bool TryApplyPathPointEffect(PathPointView pathPointView)
-        {
-            var containsTask = _levelContainer.PathModel.TaskedPathPointViews.Contains(pathPointView);
-
-            if (containsTask)
-            {
-                var task = _behaviorMapGenerator.GeneratePathPointBehaviour();
-
-                task.ApplyEffect(_levelModel.CurrentPlayer.Value);
-            }
-
-            return containsTask;
         }
     }
 }

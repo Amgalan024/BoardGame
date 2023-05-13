@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Data;
+using Gameplay.Services.TurnControllerStrategies;
 using Menu.Data;
 using Menu.Views.Icons;
 using Menu.Views.SubMenuViews;
@@ -38,7 +39,9 @@ namespace Menu.Controllers
 
         void IInitializable.Initialize()
         {
-            _playVsPlayersView.NumberOfPlayersInputField.onEndEdit.AddListener(_ => AddPlayers());
+            _playVsPlayersView.AddPlayerButton.onClick.AddListener(OpenAddPlayerView);
+
+            _playVsPlayersView.AddPlayerView.SubmitButton.onClick.AddListener(AddPlayer);
 
             _playVsPlayersView.PlayButton.onClick.AddListener(() =>
             {
@@ -88,14 +91,26 @@ namespace Menu.Controllers
         private void EnqueueLevelSetupModel(IContainerBuilder builder)
         {
             builder.RegisterInstance(_levelSetupModel);
+            builder.Register<PlayVsPlayersHandler>(Lifetime.Singleton).AsImplementedInterfaces();
         }
 
-        private void AddPlayers()
+        private void OpenAddPlayerView()
         {
-            var playersNumber = Convert.ToInt32(_playVsPlayersView.NumberOfPlayersInputField.text);
+            _playVsPlayersView.AddPlayerView.OpenAsync();
+        }
 
-            _levelSetupModel.SelectedPlayerPrefabs =
-                _gameplayVisualData.PlayerViews.GetRange(0, playersNumber);
+        private void AddPlayer()
+        {
+            var playersName = _playVsPlayersView.AddPlayerView.InputField.text;
+
+            var freePlayerView =
+                _gameplayVisualData.PlayerViews.Except(_levelSetupModel.SelectedPlayerPrefabsByName.Values).First();
+
+            _levelSetupModel.SelectedPlayerPrefabsByName.Add(playersName, freePlayerView);
+            
+            _playVsPlayersView.AddPlayerView.CloseAsync();
+
+            _playVsPlayersView.AddPlayerView.InputField.text = "";
         }
     }
 }

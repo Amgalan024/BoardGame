@@ -10,17 +10,15 @@ namespace Models
         public event Action OnFinished;
 
         public int CurrentProgress { get; private set; }
-        public bool IsFinished { get; private set; }
         public bool IsActive { get; set; }
+        public string Name { get; }
 
         private readonly int _maxProgress;
 
-        public int Index;
-
-        public PlayerModel(int maxProgress, int index)
+        public PlayerModel(int maxProgress, string name)
         {
             _maxProgress = maxProgress;
-            Index = index;
+            Name = name;
         }
 
         public void MovePlayer(MoveDirection moveDirection)
@@ -30,7 +28,6 @@ namespace Models
             if (CurrentProgress >= _maxProgress)
             {
                 CurrentProgress = _maxProgress;
-                IsFinished = true;
                 IsActive = false;
                 OnFinished?.Invoke();
             }

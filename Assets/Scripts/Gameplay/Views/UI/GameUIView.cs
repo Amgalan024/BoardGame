@@ -8,5 +8,10 @@ namespace Views
         [SerializeField] private Button _makeMoveButton;
 
         public Button MakeMoveButton => _makeMoveButton;
+
+        public void SetMakeMoveButtonInteractable(bool value)
+        {
+            _makeMoveButton.interactable = value;
+        }
     }
 }

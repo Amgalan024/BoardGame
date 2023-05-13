@@ -5,7 +5,7 @@ namespace Models
 {
     public class LevelSetupModel
     {
-        public List<PlayerView> SelectedPlayerPrefabs { get; set; }
+        public Dictionary<string, PlayerView> SelectedPlayerPrefabsByName { get; set; }
         public PathView SelectedPathPrefab { get; set; }
     }
 }

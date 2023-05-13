@@ -1,17 +1,21 @@
+using Cysharp.Threading.Tasks;
+using Menu.Views.Core.ViewHandlers;
 using UnityEngine;
 
 namespace Menu.Views.Core
 {
     public class BaseMenuView : MonoBehaviour
     {
-        public void Open()
+        [SerializeField] private BaseMenuViewHandler _menuViewHandler;
+
+        public async UniTask OpenAsync()
         {
-            gameObject.SetActive(true);
+            await _menuViewHandler.OpenAsync();
         }
 
-        public void Close()
+        public async UniTask CloseAsync()
         {
-            gameObject.SetActive(false);
+            await _menuViewHandler.CloseAsync();
         }
     }
 }

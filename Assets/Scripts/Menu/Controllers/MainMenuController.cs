@@ -27,8 +27,8 @@ namespace Menu.Controllers
         {
             _mainMenuView.VsPlayersButton.onClick.AddListener(() =>
             {
-                _mainMenuView.Close();
-                _playVsPlayersView.Open();
+                _mainMenuView.CloseAsync();
+                _playVsPlayersView.OpenAsync();
             });
         }
     }

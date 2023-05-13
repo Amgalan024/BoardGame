@@ -27,7 +27,7 @@ namespace Installers
 
             builder.RegisterEntryPoint<LevelSetupController>();
             builder.RegisterEntryPoint<PlayersController>();
-            builder.RegisterEntryPoint<GameplayUIController>();
+            builder.RegisterEntryPoint<LevelController>();
         }
     }
 }

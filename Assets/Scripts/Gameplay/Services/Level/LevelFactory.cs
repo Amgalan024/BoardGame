@@ -26,14 +26,12 @@ namespace Gameplay.Services
 
         public void CreatePlayers()
         {
-            int index = 1;
-            foreach (var selectedPlayerPrefab in _levelSetupModel.SelectedPlayerPrefabs)
+            foreach (var selectedPlayer in _levelSetupModel.SelectedPlayerPrefabsByName)
             {
-                var playerModel = new PlayerModel(_levelContainer.PathModel.TotalProgress,index );
-                var playerView = Object.Instantiate(selectedPlayerPrefab, _parentScope);
+                var playerModel = new PlayerModel(_levelContainer.PathModel.TotalProgress, selectedPlayer.Key);
+                var playerView = Object.Instantiate(selectedPlayer.Value, _parentScope);
 
                 _levelContainer.PlayerViewsByModel.Add(playerModel, playerView);
-                index++;
             }
         }
 
