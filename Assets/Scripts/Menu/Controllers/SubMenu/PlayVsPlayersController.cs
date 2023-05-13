@@ -107,10 +107,15 @@ namespace Menu.Controllers
                 _gameplayVisualData.PlayerViews.Except(_levelSetupModel.SelectedPlayerPrefabsByName.Values).First();
 
             _levelSetupModel.SelectedPlayerPrefabsByName.Add(playersName, freePlayerView);
-            
+
             _playVsPlayersView.AddPlayerView.CloseAsync();
 
             _playVsPlayersView.AddPlayerView.InputField.text = "";
+
+            var playerIcon = Object.Instantiate(_menuVisualData.PlayerIconView,
+                _playVsPlayersView.AddedPlayersLayoutGroup.transform);
+
+            playerIcon.SetName(playersName);
         }
     }
 }

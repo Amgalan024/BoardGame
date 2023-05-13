@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: MenuVisualData
   m_EditorClassIdentifier: 
   _pathIconView: {fileID: 5705770586644790458, guid: dce227ccfe2fbfc45ad44a7ab96cf859, type: 3}
+  _playerIconView: {fileID: 5899289949909864796, guid: d41fc5a0d8f500143b2db787857f00e1, type: 3}
