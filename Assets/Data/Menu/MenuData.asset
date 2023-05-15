@@ -16,3 +16,10 @@ MonoBehaviour:
     m_AssetGUID: 29ea43a0cda1f1044805784387c6cf83
     m_SubObjectName: 
     m_SubObjectType: 
+  _botDifficultyConfigs:
+  - _botsDifficultyType: 0
+    _dropDownText: "\u041B\u0435\u0433\u043A\u0438\u0439"
+  - _botsDifficultyType: 1
+    _dropDownText: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439"
+  - _botsDifficultyType: 2
+    _dropDownText: "\u0421\u043B\u043E\u0436\u043D\u044B\u0439"
