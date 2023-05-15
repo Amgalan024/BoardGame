@@ -1,3 +1,4 @@
+using Gameplay.Models.Bot;
 using Models;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Views.PathPointBehaviours
     {
         bool IsActive { get; set; }
         public int Reward { get; }
-        void ApplyEffect(PlayerModel playerModel);
+        void ApplyEffectToPlayer(PlayerModel playerModel);
+        void ApplyEffectToBot(BotModel botModel);
     }
 }

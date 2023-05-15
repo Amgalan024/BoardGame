@@ -13,14 +13,16 @@ namespace Menu.Controllers
         private readonly SceneLoader _sceneLoader;
         private readonly MainMenuView _mainMenuView;
         private readonly PlayVsPlayersView _playVsPlayersView;
+        private readonly PlayVsBotsView _playVsBotsView;
 
         public MainMenuController(MenuData menuData, SceneLoader sceneLoader, MainMenuView mainMenuView,
-            PlayVsPlayersView playVsPlayersView)
+            PlayVsPlayersView playVsPlayersView, PlayVsBotsView playVsBotsView)
         {
             _menuData = menuData;
             _sceneLoader = sceneLoader;
             _mainMenuView = mainMenuView;
             _playVsPlayersView = playVsPlayersView;
+            _playVsBotsView = playVsBotsView;
         }
 
         void IInitializable.Initialize()
@@ -29,6 +31,12 @@ namespace Menu.Controllers
             {
                 _mainMenuView.CloseAsync();
                 _playVsPlayersView.OpenAsync();
+            });
+
+            _mainMenuView.VSBotsButton.onClick.AddListener(() =>
+            {
+                _mainMenuView.CloseAsync();
+                _playVsBotsView.OpenAsync();
             });
         }
     }

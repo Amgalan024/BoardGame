@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Models
@@ -37,11 +38,13 @@ namespace Models
             if (CurrentPlayer.Next != null)
             {
                 CurrentPlayer = CurrentPlayer.Next;
+                Debug.Log(CurrentPlayer.Value.Name + " Turn");
                 TurnChanged?.Invoke();
             }
             else
             {
                 CurrentPlayer = CurrentPlayer.List.First;
+                Debug.Log(CurrentPlayer.Value.Name + " Turn");
                 TurnChanged?.Invoke();
             }
 

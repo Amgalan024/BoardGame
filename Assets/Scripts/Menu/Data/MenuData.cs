@@ -7,7 +7,8 @@ namespace Menu.Data
     public class MenuData : ScriptableObject
     {
         [SerializeField] private AssetReference _gameplayScene;
-
+        [SerializeField] private BotDifficultyData[] _botDifficultyConfigs;
+        public BotDifficultyData[] BotDifficultyConfigs => _botDifficultyConfigs;
         public AssetReference GameplayScene => _gameplayScene;
     }
 }

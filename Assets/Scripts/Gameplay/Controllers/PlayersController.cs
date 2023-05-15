@@ -27,6 +27,7 @@ namespace Controllers
         {
             foreach (var playerModel in _levelContainer.PlayerModels)
             {
+                playerModel.SetTotalProgress(_levelContainer.PathModel.TotalProgress);
                 playerModel.OnMoveDistanceSet += _onMovedAction;
                 playerModel.IsActive = true;
             }

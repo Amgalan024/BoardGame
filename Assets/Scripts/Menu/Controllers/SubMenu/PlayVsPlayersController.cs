@@ -22,8 +22,8 @@ namespace Menu.Controllers
         private readonly MenuData _menuData;
         private readonly GameplayVisualData _gameplayVisualData;
         private readonly MenuVisualData _menuVisualData;
-        private readonly LevelSetupModel _levelSetupModel;
 
+        private readonly LevelSetupModel _levelSetupModel = new LevelSetupModel();
         private readonly List<PathIconView> _pathIcons = new List<PathIconView>();
 
         public PlayVsPlayersController(PlayVsPlayersView playVsPlayersView, SceneLoader sceneLoader, MenuData menuData,
@@ -34,7 +34,6 @@ namespace Menu.Controllers
             _menuData = menuData;
             _gameplayVisualData = gameplayVisualData;
             _menuVisualData = menuVisualData;
-            _levelSetupModel = new LevelSetupModel();
         }
 
         void IInitializable.Initialize()
@@ -102,11 +101,12 @@ namespace Menu.Controllers
         private void AddPlayer()
         {
             var playersName = _playVsPlayersView.AddPlayerView.InputField.text;
+            var playerModel = new PlayerModel(playersName);
 
-            var freePlayerView =
-                _gameplayVisualData.PlayerViews.Except(_levelSetupModel.SelectedPlayerPrefabsByName.Values).First();
+            var freePlayerView = _gameplayVisualData.PlayerViewData
+                .Except(_levelSetupModel.PlayerViewDataByModels.Values).First();
 
-            _levelSetupModel.SelectedPlayerPrefabsByName.Add(playersName, freePlayerView);
+            _levelSetupModel.PlayerViewDataByModels.Add(playerModel, freePlayerView);
 
             _playVsPlayersView.AddPlayerView.CloseAsync();
 

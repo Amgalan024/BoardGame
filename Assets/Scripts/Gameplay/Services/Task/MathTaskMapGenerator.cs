@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Gameplay.Enums;
+using Models;
 using Views;
 using Views.PathPointBehaviours;
 using Random = UnityEngine.Random;
@@ -10,10 +11,12 @@ namespace Gameplay.Services.Path
     public class MathTaskMapGenerator : IBehaviorMapGenerator
     {
         private readonly LevelContainer _levelContainer;
+        private readonly LevelModel _levelModel;
 
-        public MathTaskMapGenerator(LevelContainer levelContainer)
+        public MathTaskMapGenerator(LevelContainer levelContainer, LevelModel levelModel)
         {
             _levelContainer = levelContainer;
+            _levelModel = levelModel;
         }
 
         List<PathPointView> IBehaviorMapGenerator.GenerateBehavioursMap()
@@ -28,7 +31,7 @@ namespace Gameplay.Services.Path
 
             var behaviourMap = new List<PathPointView>();
 
-            while (pathPointIndex <= pathModel.TotalProgress)
+            while (pathPointIndex <= pathModel.TotalProgress - 1)
             {
                 pathPointIndex += Random.Range(minStep, maxStep);
 
@@ -84,8 +87,8 @@ namespace Gameplay.Services.Path
                     taskText = $"{number1} * {number2} = ?";
                     break;
                 case MathOperationTypes.Division:
-                    number1 = Random.Range(0, 10);
-                    number2 = Random.Range(0, 10);
+                    number1 = Random.Range(1, 10);
+                    number2 = Random.Range(1, 10);
                     number1 = number1 * number2;
 
                     answer = number1 / number2;
@@ -94,7 +97,8 @@ namespace Gameplay.Services.Path
                     break;
             }
 
-            var mathTaskPathPoint = new MathTaskPathPoint(_levelContainer.MathTaskView, taskText, answer, reward);
+            var mathTaskPathPoint =
+                new MathTaskPathPoint(_levelContainer.MathTaskView, _levelModel, taskText, answer, reward);
 
             return mathTaskPathPoint;
         }

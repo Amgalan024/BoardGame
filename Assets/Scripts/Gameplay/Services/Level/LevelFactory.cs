@@ -1,5 +1,4 @@
 using Data;
-using Gameplay.Services.Path;
 using Models;
 using UnityEngine;
 using VContainer.Unity;
@@ -12,7 +11,7 @@ namespace Gameplay.Services
         private readonly LevelContainer _levelContainer;
         private readonly GameplayVisualData _visualData;
 
-        private Transform _parentScope;
+        private readonly Transform _parentScope;
 
         public LevelFactory(LevelSetupModel levelSetupModel, LevelContainer levelContainer,
             GameplayVisualData visualData, LifetimeScope lifetimeScope)
@@ -26,12 +25,11 @@ namespace Gameplay.Services
 
         public void CreatePlayers()
         {
-            foreach (var selectedPlayer in _levelSetupModel.SelectedPlayerPrefabsByName)
+            foreach (var selectedPlayer in _levelSetupModel.PlayerViewDataByModels)
             {
-                var playerModel = new PlayerModel(_levelContainer.PathModel.TotalProgress, selectedPlayer.Key);
-                var playerView = Object.Instantiate(selectedPlayer.Value, _parentScope);
+                var playerView = Object.Instantiate(selectedPlayer.Value.PlayerView, _parentScope);
 
-                _levelContainer.PlayerViewsByModel.Add(playerModel, playerView);
+                _levelContainer.PlayerViewsByModel.Add(selectedPlayer.Key, playerView);
             }
         }
 
@@ -53,6 +51,15 @@ namespace Gameplay.Services
             var mathTaskView = Object.Instantiate(_visualData.MathMathTaskView, _parentScope);
             _levelContainer.GameUIView = gameUIView;
             _levelContainer.MathTaskView = mathTaskView;
+
+            foreach (var playerData in _levelSetupModel.PlayerViewDataByModels)
+            {
+                var playerIcon = Object.Instantiate(_visualData.PlayerIconView,
+                    gameUIView.PlayerIconsLayoutGroup.transform);
+
+                playerIcon.SetName(playerData.Key.Name);
+                playerIcon.SetIcon(playerData.Value.Icon);
+            }
         }
     }
 }

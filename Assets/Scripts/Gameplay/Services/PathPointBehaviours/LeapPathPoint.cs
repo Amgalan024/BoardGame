@@ -1,3 +1,4 @@
+using Gameplay.Models.Bot;
 using Models;
 
 namespace Views.PathPointBehaviours
@@ -13,9 +14,14 @@ namespace Views.PathPointBehaviours
 
         public int Reward { get; }
 
-        public void ApplyEffect(PlayerModel playerModel)
+        public void ApplyEffectToPlayer(PlayerModel playerModel)
         {
             playerModel.SetMoveDistance(Reward);
+        }
+
+        public void ApplyEffectToBot(BotModel botModel)
+        {
+            botModel.SetMoveDistance(Reward);
         }
     }
 }

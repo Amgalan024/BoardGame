@@ -11,12 +11,15 @@ namespace Menu.Installers
 {
     public class MenuLifetimeScope : LifetimeScope
     {
-        [Header("Data"), SerializeField] private GameplayVisualData _gameplayVisualData;
+        [Header("Data")] 
+        [SerializeField] private GameplayVisualData _gameplayVisualData;
         [SerializeField] private MenuData _menuData;
         [SerializeField] private MenuVisualData _menuVisualData;
 
-        [Header("Views"), SerializeField] private MainMenuView _mainMenuView;
+        [Header("Views")] 
+        [SerializeField] private MainMenuView _mainMenuView;
         [SerializeField] private PlayVsPlayersView _playVsPlayersView;
+        [SerializeField] private PlayVsBotsView _playVsBotsView;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -28,9 +31,11 @@ namespace Menu.Installers
 
             builder.RegisterInstance(_mainMenuView);
             builder.RegisterInstance(_playVsPlayersView);
+            builder.RegisterInstance(_playVsBotsView);
 
             builder.RegisterEntryPoint<MainMenuController>();
             builder.RegisterEntryPoint<PlayVsPlayersController>();
+            builder.RegisterEntryPoint<PlayVsBotsController>();
         }
     }
 }

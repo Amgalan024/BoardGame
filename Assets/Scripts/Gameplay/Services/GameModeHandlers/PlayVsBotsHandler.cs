@@ -1,6 +1,6 @@
+using Gameplay.Models.Bot;
 using Gameplay.Services.TurnControllerStrategies.Interface;
 using Models;
-using UnityEngine;
 using Views;
 using Views.PathPointBehaviours;
 
@@ -24,13 +24,13 @@ namespace Gameplay.Services.TurnControllerStrategies
 
         void IGameModeHandler.OnTurnChanged()
         {
-            if (_botsContainer.BotsIdList.Contains(_levelModel.CurrentPlayer.Value.Name))
+            if (_levelModel.CurrentPlayer.Value is BotModel)
             {
                 var moveLenght = _levelModel.RandomMoveLenght();
 
-                var playerModel = _levelModel.CurrentPlayer.Value;
+                var botModel = (BotModel) _levelModel.CurrentPlayer.Value;
 
-                playerModel.SetMoveDistance(moveLenght);
+                botModel.SetMoveDistance(1);
             }
             else
             {
@@ -44,7 +44,7 @@ namespace Gameplay.Services.TurnControllerStrategies
 
             var playerModel = _levelModel.CurrentPlayer.Value;
 
-            playerModel.SetMoveDistance(moveLenght);
+            playerModel.SetMoveDistance(1);
 
             _levelContainer.GameUIView.SetMakeMoveButtonInteractable(false);
         }
@@ -57,32 +57,17 @@ namespace Gameplay.Services.TurnControllerStrategies
             {
                 var task = _behaviorMapGenerator.GeneratePathPointBehaviour();
 
-                if (_botsContainer.BotsIdList.Contains(_levelModel.CurrentPlayer.Value.Name))
+                if (_levelModel.CurrentPlayer.Value is BotModel botModel)
                 {
-                    ApplyEffectToBot(task);
+                    task.ApplyEffectToBot(botModel);
                 }
                 else
                 {
-                    ApplyEffectToPlayer(task);
+                    task.ApplyEffectToPlayer(_levelModel.CurrentPlayer.Value);
                 }
             }
 
             return containsTask;
-        }
-
-        private void ApplyEffectToPlayer(IPathPointBehaviour task)
-        {
-            task.ApplyEffect(_levelModel.CurrentPlayer.Value);
-        }
-
-        private void ApplyEffectToBot(IPathPointBehaviour task)
-        {
-            var randomChance = Random.Range(0, 100);
-
-            if (randomChance > 50)
-            {
-                _levelModel.CurrentPlayer.Value.SetMoveDistance(task.Reward);
-            }
         }
     }
 }

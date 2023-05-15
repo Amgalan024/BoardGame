@@ -13,21 +13,25 @@ namespace Models
         public bool IsActive { get; set; }
         public string Name { get; }
 
-        private readonly int _maxProgress;
+        public int TotalProgress { get; private set; }
 
-        public PlayerModel(int maxProgress, string name)
+        public PlayerModel(string name)
         {
-            _maxProgress = maxProgress;
             Name = name;
+        }
+
+        public void SetTotalProgress(int totalProgress)
+        {
+            TotalProgress = totalProgress;
         }
 
         public void MovePlayer(MoveDirection moveDirection)
         {
             CurrentProgress += (int) moveDirection;
 
-            if (CurrentProgress >= _maxProgress)
+            if (CurrentProgress >= TotalProgress)
             {
-                CurrentProgress = _maxProgress;
+                CurrentProgress = TotalProgress;
                 IsActive = false;
                 OnFinished?.Invoke();
             }

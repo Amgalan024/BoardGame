@@ -43,7 +43,7 @@ namespace Gameplay.Services.TurnControllerStrategies
             {
                 var task = _behaviorMapGenerator.GeneratePathPointBehaviour();
 
-                task.ApplyEffect(_levelModel.CurrentPlayer.Value);
+                task.ApplyEffectToPlayer(_levelModel.CurrentPlayer.Value);
             }
 
             return containsTask;
